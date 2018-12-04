@@ -1,29 +1,48 @@
 apply plugin: 'com.android.application'
 
+def versionTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 23
 //    buildToolsVersion "26.0.2"
     buildToolsVersion "28.0.3"
     defaultConfig {
-        applicationId "org.egret.launcher.feidaoh5"
+        applicationId "com.shenqi.knifehit3"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
-
+//debug和release版本的签名配置
+    signingConfigs {
+        release {
+            storeFile file('D:/android/fyc/feidaoh5/feidao.jks')
+            keyAlias 'key0'
+            keyPassword '123456'
+            storePassword '123456'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles.add(file('proguard-rules.pro'))
+            signingConfig signingConfigs.release
+        }
+    }
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == 'release') {
+            variant.outputs.all {
+                def apkName = "飞刀_v${defaultConfig.versionName}_${versionTime()}_${buildType.name}"
+                outputFileName = apkName + ".apk"
+            }
         }
     }
 }
 
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/egretlauncher.jar')
     testImplementation 'junit:junit:4.12'
 }
