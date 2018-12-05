@@ -14,6 +14,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        flavorDimensions "1"
     }
 //debug和release版本的签名配置
     signingConfigs {
@@ -34,10 +35,36 @@ android {
     applicationVariants.all { variant ->
         if (variant.buildType.name == 'release') {
             variant.outputs.all {
-                def apkName = "飞刀_v${defaultConfig.versionName}_${versionTime()}_${buildType.name}"
+                def apkName = "小小飞刀_v${defaultConfig.versionName}_${versionTime()}_${buildType.name}"
                 outputFileName = apkName + ".apk"
             }
         }
+    }
+    productFlavors {
+//        baidu {
+//            applicationId "cn.fangz.baidu"
+//            // 对resValue在java代码中的使用：String app_id = getResources().getString(R.string.app_id);
+//            resValue("string", "app_id", "50074")
+//            resValue("string", "app_start", "1")
+//            // 对manifestPlaceholders中资源的使用：在AndroidManifest.xml文件中的application节点下
+//            // andorid:icon="${icon}"
+//            // android:app_name="${app_name}"
+//            manifestPlaceholders = [app_name: "@string/app_name_agiledata", icon: "@drawable/ic_launcher"]
+//        }
+//
+//        wandoujia {
+//            applicationId "cn.fangz.wandoujia"
+//            resValue("string", "app_id", "50032")
+//            resValue("string", "app_start", "0")
+//            manifestPlaceholders = [app_name: "@string/app_name_michelin", icon: "@drawable/ic_launcher"]
+//        }
+//
+//        weixin {
+//            applicationId "cn.fangz.weixin"
+//            resValue("string", "app_id", "50079")
+//            resValue("string", "app_start", "1")
+//            manifestPlaceholders = [app_name: "@string/app_name_citic", icon: "@drawable/ic_launcher"]
+//        }
     }
 }
 
